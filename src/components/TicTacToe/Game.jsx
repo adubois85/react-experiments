@@ -1,6 +1,6 @@
 import React from 'react'
 import Board from './Board'
-import '../stylesheets/TicTacToe.css'
+import '../../stylesheets/TicTacToe.css'
 
 class Game extends React.Component {
     constructor(props) {
