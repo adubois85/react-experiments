@@ -1,7 +1,11 @@
-// import React from 'react';
-import { Outlet, Link } from 'react-router-dom'
-import Home from './components/Home'
+import React from 'react';
+import { 
+    createBrowserRouter,
+    RouterProvider
+    } from 'react-router-dom'
+import Layout from './components/Layout'
 import Game from './components/TicTacToe/Game'
+import Home from './components/Home'
 
 // function App() {
 //     return (
@@ -18,19 +22,23 @@ import Game from './components/TicTacToe/Game'
 //     );
 // }
 
-function App() {
+
+const router = createBrowserRouter([{
+        path: "/",
+        element: <Layout />,
+        children: [{
+            path: "tictactoe",
+            element: <Game />
+        },
+        {
+            path: "home",
+            element: <Home />
+    }]
+    },
+])
+
+export default function App() {
     return(
-        <>
-            <nav style={{
-                borderBottom: "solid 1px",
-                paddingBottom: "1rem",
-            }}>
-                <Link to="/tictactoe">TicTacToe</Link> | {" "}
-                <Link to="/">Home</Link>
-            </nav>
-            <Outlet />
-        </>
+        <RouterProvider router={router} />
     );
 }
-
-export default App;
