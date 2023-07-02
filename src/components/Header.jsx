@@ -8,8 +8,9 @@ export default function Header() {
                 borderBottom: "solid 1px",
                 paddingBottom: "1rem",
             }}>
-                <Link to="tictactoe">TicTacToe</Link> | {" "}
-                <Link to="home">Home</Link>
+                <NavLink to=".">Home</NavLink> |
+                <NavLink to="tictactoe">TicTacToe</NavLink> | {" "}
+                <NavLink to="a-maze-ing">A-Maze-ing</NavLink>
             </nav>
         </header>
     )

@@ -5,6 +5,7 @@ import {
     } from 'react-router-dom'
 import Layout from './components/Layout'
 import Game from './components/TicTacToe/Game'
+import Maze from './components/A-Maze-ing/Maze'
 import Home from './components/Home'
 
 // function App() {
@@ -27,13 +28,17 @@ const router = createBrowserRouter([{
         path: "/",
         element: <Layout />,
         children: [{
+            path: "/",
+            element: <Home />
+        },
+        {
             path: "tictactoe",
             element: <Game />
         },
         {
-            path: "home",
-            element: <Home />
-    }]
+            path:"a-maze-ing",
+            element: <Maze />
+        }]
     },
 ])
 
