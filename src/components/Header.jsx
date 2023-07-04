@@ -9,7 +9,8 @@ export default function Header() {
             }}>
                 <NavLink to=".">Home</NavLink> |
                 <NavLink to="tictactoe">TicTacToe</NavLink> | {" "}
-                <NavLink to="a-maze-ing">A-Maze-ing</NavLink>
+                <NavLink to="a-maze-ing">A-Maze-ing</NavLink> | {" "}
+                <NavLink to="test">Test</NavLink>
             </nav>
         </header>
     )

@@ -6,6 +6,7 @@ import Layout from './components/Layout'
 import Game from './components/TicTacToe/Game'
 import Maze from './components/A-Maze-ing/Maze'
 import Home from './components/Home'
+import Test from './components/TicTacToe/Test'
 
 // function App() {
 //     return (
@@ -37,6 +38,10 @@ const router = createBrowserRouter([{
         {
             path:"a-maze-ing",
             element: <Maze />
+        },
+        {
+            path:"test",
+            element: <Test />
         }]
     },
 ])
