@@ -13,12 +13,12 @@ function calculateWinner(squares) {
         [0, 4, 8],
         [2, 4, 6],
     ]
-    lines.forEach(line => {
-        const [a, b, c] = line
+    for (let i = 0; i < lines.length; i++) {
+        const [a, b, c] = lines[i]
         if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
             return squares[a]
         }
-    })
+    }
 }
 
 export default function Test() {
@@ -26,20 +26,22 @@ export default function Test() {
         history: [Array(9).fill(null),
     ],
         stepNumber: 0,
-        xIsNext: true
+        xIsNext: true,
+        winner: null
     })
 
     function handleClick(i){
-        if (game.history.slice(-1)[0][i] != null){
+        let currentMove = game.history.slice(-1)[0]
+        if (currentMove[i] || game.winner) {
             return
         }
         const history = game.history
-        let currentMove = game.history.slice(-1)
-        currentMove[0][i] = game.xIsNext ? 'X' : 'O'
+        currentMove[i] = game.xIsNext ? 'X' : 'O'
         setGame(prevGame => ({
-            history: [...history, ...currentMove],
+            history: [...history, currentMove],
             stepNumber: prevGame.stepNumber + 1,
-            xIsNext: !prevGame.xIsNext
+            xIsNext: !prevGame.xIsNext,
+            winner: calculateWinner(currentMove)
         }))
     }
 
