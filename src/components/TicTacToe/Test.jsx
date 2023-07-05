@@ -23,23 +23,24 @@ function calculateWinner(squares) {
 
 export default function Test() {
     const [game, setGame] = useState({
-        history: [
-            Array(9).fill(null)
-        ],
+        history: [Array(9).fill(null),
+    ],
         stepNumber: 0,
         xIsNext: true
     })
 
-    // console.log(game)
-    // console.log(game.history.squares)
-    // console.log(calculateWinner(['x']))
-
     function handleClick(i){
+        if (game.history.slice(-1)[0][i] != null){
+            return
+        }
         const history = game.history
-        console.log(history)
-        // setGame(prevGame => ({
-
-        // }))
+        let currentMove = game.history.slice(-1)
+        currentMove[0][i] = game.xIsNext ? 'X' : 'O'
+        setGame(prevGame => ({
+            history: [...history, ...currentMove],
+            stepNumber: prevGame.stepNumber + 1,
+            xIsNext: !prevGame.xIsNext
+        }))
     }
 
     // <div>{status}</div>
@@ -49,7 +50,7 @@ export default function Test() {
         <div className="game">
             <div className="game-board">
                 <Board
-                    squares={game.history}
+                    squares={game.history[0]}
                     onClick={(i) => handleClick(i)}
                 />
             </div>
