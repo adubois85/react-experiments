@@ -57,6 +57,12 @@ export default function Test() {
                 />
             </div>
             <div className="game-info">
+                <div>
+                    {game.winner
+                        ? `Winner: ${game.winner}`
+                        : `Next Player: ${game.xIsNext ? 'X' : 'O'}`
+                    }
+                </div>
 
             </div>
         </div>
