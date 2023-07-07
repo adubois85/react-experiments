@@ -43,6 +43,7 @@ export default function Test() {
             xIsNext: !prevGame.xIsNext,
             winner: calculateWinner(currentMove)
         }))
+        console.log(game.history)
     }
 
     const gameStatus = (game.winner)
@@ -66,6 +67,14 @@ export default function Test() {
     //         </li>
     //     )
     // })
+    function jumpTo(step) {
+        setGame(prevGame => ({
+            ...prevGame,
+            history: prevGame.history.slice(0, step + 1),
+            stepNumber: step,
+            xIsNext: step % 2,
+        }))
+    }
 
     const moves = game.history.map((move, index) => {
             let description = (index == 0)
@@ -73,7 +82,7 @@ export default function Test() {
                                 : `move #${index}`
             return (
                 <li key={index}>
-                    <button>
+                    <button onClick={() => jumpTo(index)}>
                         Go to {description}
                     </button>
                 </li>
