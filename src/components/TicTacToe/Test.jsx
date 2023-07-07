@@ -45,9 +45,41 @@ export default function Test() {
         }))
     }
 
-    // <div>{status}</div>
-    // <ol>{moves}</ol>
+    const gameStatus = (game.winner)
+                        ? `Winner: ${game.winner}`
+                        : `Next Player: ${game.xIsNext ? 'X' : 'O'}`
 
+    // const moves = game.history.map(move => {
+    //     const desc = (move)
+    //                 ? `Go to move # ${move}`
+    //                 : "Go to game start"
+    //     return(
+    //         <li key={move}>
+    //             <button onClick={() => {
+    //                 setGame(prevGame => ({
+    //                     ...prevGame,
+    //                     history: prevGame.history.slice(0, move)
+    //                 }))
+    //             }}>
+    //                 {desc}
+    //             </button>
+    //         </li>
+    //     )
+    // })
+
+    const moves = game.history.map((move, index) => {
+            let description = (index == 0)
+                                ? 'game start'
+                                : `move #${index}`
+            return (
+                <li key={index}>
+                    <button>
+                        Go to {description}
+                    </button>
+                </li>
+            );
+        });
+    
     return (
         <div className="game">
             <div className="game-board">
@@ -57,14 +89,11 @@ export default function Test() {
                 />
             </div>
             <div className="game-info">
-                <div>
-                    {game.winner
-                        ? `Winner: ${game.winner}`
-                        : `Next Player: ${game.xIsNext ? 'X' : 'O'}`
-                    }
-                </div>
-
+                <div>{gameStatus}</div>
             </div>
+            <ol>
+                {moves}
+            </ol>
         </div>
     )
 }
