@@ -24,7 +24,7 @@ function calculateWinner(squares) {
 export default function Test() {
     const [game, setGame] = useState({
         history: [Array(9).fill(null),
-    ],
+],
         stepNumber: 0,
         xIsNext: true,
         winner: null
@@ -35,15 +35,15 @@ export default function Test() {
         if (currentMove[i] || game.winner) {
             return
         }
-        const history = game.history
         currentMove[i] = game.xIsNext ? 'X' : 'O'
+        // console.log(currentMove)
         setGame(prevGame => ({
-            history: [...history, currentMove],
+            history: [...prevGame.history, currentMove],
             stepNumber: prevGame.stepNumber + 1,
             xIsNext: !prevGame.xIsNext,
             winner: calculateWinner(currentMove)
         }))
-        console.log(game.history)
+        // console.log(game.history)
     }
 
     const gameStatus = (game.winner)
