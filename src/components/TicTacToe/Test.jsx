@@ -15,14 +15,15 @@ function calculateWinner(squares) {
     add up each row/column/diagonal to get a sum of winning squares
     */
     const wins = [7, 56, 448, 73, 146, 292, 84, 273]
-    wins.forEach(win => {
+    for (let i = 0; i < wins.length; i++) {
         // use each winning sum as a bitmask, then see if any of the results are equal;
         // if so, then you must have filled in those squares, thus winning
-        let temp = squares & win
-        if (temp == win){
-            console.log("You win")
+        let temp = squares & wins[i]
+        if (temp == wins[i]){
+            return true
         }
-    })
+    }
+    return false
 }
 
 export default function Test() {
@@ -30,7 +31,7 @@ export default function Test() {
     const [history, setHistory] = useState([{movesX:0, movesO:0}])
     const [currentMove, setCurrentMove] = useState(0)
     const xIsNext = currentMove % 2 == 0
-    // console.log(xIsNext)
+    let winner
 
     function  createSquares(moves) {
         let squares = Array(9).fill(null)
@@ -46,11 +47,12 @@ export default function Test() {
         return squares
     }
 
-    // const currentBoard = createSquares(history.slice(-1))
     const currentBoard = createSquares(history[currentMove])
-    // console.log(history)
 
     function handleClick(i) {
+        if (winner) {
+            return
+        }
         const current = history[currentMove]
         let next
         if (xIsNext) {
@@ -66,33 +68,14 @@ export default function Test() {
         }
         setCurrentMove(prev => prev + 1)
         setHistory([...history, next])
+        if (calculateWinner(history[currentMove].movesX)) {
+            winner = "Winner: X"
+        }
+        if (calculateWinner(history[currentMove].movesO)) {
+            winner = "Winner: O"
+        }
     }
-    // let temp = 412 // 001110011
-    // let temp2 = []
-    // for (let i = 0; i < 9; i++) {
-    //     temp2[i] = (temp >> i) & 1
-    // }
-    // console.log(temp2)
 
-    // console.log(calculateWinner(8))
-    // let temp = [7, 56, 448, 73, 146, 292, 84, 273]
-    // let score = 401
-    // console.log([score | 7, score | 56, score | 448],
-    //             [score | 73, score | 146, score | 292],
-    //             [score | 84, score | 273])
-
-    // console.log([score & 7, score & 56, score & 448],
-    //             [score & 73, score & 146, score & 292],
-    //             [score & 84, score & 273])
-
-    // console.log([score ^ 7, score ^ 56, score ^ 448],
-    //             [score ^ 73, score ^ 146, score ^ 292],
-    //             [score ^ 84, score ^ 273])
-
-    // console.log(calculateWinner(146))
-    // calculateWinner(137)
-
-    // const dummyBoard = Array(9).fill(null)
     // const gameStatus = (game.winner)
     //                     ? `Winner: ${game.winner}`
     //                     : `Next Player: ${game.xIsNext ? 'X' : 'O'}`
