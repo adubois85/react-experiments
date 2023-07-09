@@ -39,6 +39,13 @@ export default function Test() {
         winner = "Winner: O"
     }
 
+    let gameStatus
+    if (winner) {
+        gameStatus = winner
+    } else {
+        gameStatus = `Next Player: ${xIsNext ? 'X' : 'O'}`
+    }
+
     function  createSquares(moves) {
         let squares = Array(9).fill(null)
         for (let i = 0; i < 9; i++) {
@@ -93,7 +100,6 @@ export default function Test() {
             </li>
         )
     })
-    // <div>{gameStatus}</div>
     
     return (
         <div className="game">
@@ -104,6 +110,7 @@ export default function Test() {
                 />
             </div>
             <div className="game-info">
+            <div>{gameStatus}</div>
                 <ol>
                     {movesList}
                 </ol>
