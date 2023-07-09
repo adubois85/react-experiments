@@ -27,11 +27,17 @@ function calculateWinner(squares) {
 }
 
 export default function Test() {
-    // const [history, setHistory] = useState([{movesX: 0, movesO: 0}])
     const [history, setHistory] = useState([{movesX:0, movesO:0}])
     const [currentMove, setCurrentMove] = useState(0)
     const xIsNext = currentMove % 2 == 0
+    
     let winner
+    if (calculateWinner(history[currentMove].movesX)) {
+        winner = "Winner: X"
+    }
+    if (calculateWinner(history[currentMove].movesO)) {
+        winner = "Winner: O"
+    }
 
     function  createSquares(moves) {
         let squares = Array(9).fill(null)
@@ -50,10 +56,11 @@ export default function Test() {
     const currentBoard = createSquares(history[currentMove])
 
     function handleClick(i) {
-        if (winner) {
+        const current = history[currentMove]
+        const filled = current.movesX + current.movesO
+        if ((filled & 2 ** i) != 0 || winner) {
             return
         }
-        const current = history[currentMove]
         let next
         if (xIsNext) {
             next = {
@@ -68,12 +75,6 @@ export default function Test() {
         }
         setCurrentMove(prev => prev + 1)
         setHistory([...history, next])
-        if (calculateWinner(history[currentMove].movesX)) {
-            winner = "Winner: X"
-        }
-        if (calculateWinner(history[currentMove].movesO)) {
-            winner = "Winner: O"
-        }
     }
 
     // const gameStatus = (game.winner)
