@@ -53,6 +53,10 @@ export default function Test() {
         return squares
     }
 
+    function jumpTo(i) {
+        console.log(i)
+    }
+
     const currentBoard = createSquares(history[currentMove])
 
     function handleClick(i) {
@@ -77,29 +81,19 @@ export default function Test() {
         setHistory([...history, next])
     }
 
-    // const gameStatus = (game.winner)
-    //                     ? `Winner: ${game.winner}`
-    //                     : `Next Player: ${game.xIsNext ? 'X' : 'O'}`
-
-    // const moves = game.history.map((move, index) => {
-    //         let description = (index == 0)
-    //                             ? 'game start'
-    //                             : `move #${index}`
-    //         return (
-    //             <li key={index}>
-    //                 <button onClick={() => jumpTo(index)}>
-    //                     Go to {description}
-    //                 </button>
-    //             </li>
-    //         );
-    //     });
-
-// {/* <div className="game-info">
-//     <div>{gameStatus}</div>
-// </div> */}
-//     <ol>
-//     {moves}
-// </ol>
+    const movesList = history.map((move, index) => {
+        let description = (index == 0)
+                            ? 'game start'
+                            : `move #${index}`
+        return (
+            <li key={index}>
+                <button onClick={(i) => jumpTo(i)}>
+                    Go to {description}
+                </button>
+            </li>
+        )
+    })
+    // <div>{gameStatus}</div>
     
     return (
         <div className="game">
@@ -109,7 +103,11 @@ export default function Test() {
                     onClick={(i) => handleClick(i)}
                 />
             </div>
-
+            <div className="game-info">
+                <ol>
+                    {movesList}
+                </ol>
+            </div>
         </div>
     )
 }
