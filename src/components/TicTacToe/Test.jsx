@@ -26,6 +26,28 @@ function calculateWinner(squares) {
 }
 
 export default function Test() {
+    const [history, setHistory] = useState({movesX: 0, movesO: 0})
+    function  createSquares(moves) {
+        let squares = Array(9).fill(null)
+        for (let i = 0; i < 9; i++) {
+            if ((moves.movesX >> i) & 1) {
+                squares[i] = 'X'
+            } else if ((moves.movesO >> i) & 1) {
+                squares[i] = 'O'
+            } else {
+                squares[i] = null
+            }
+        }
+        return squares
+    }
+
+    // let temp = 412 // 001110011
+    // let temp2 = []
+    // for (let i = 0; i < 9; i++) {
+    //     temp2[i] = (temp >> i) & 1
+    // }
+    // console.log(temp2)
+
     // console.log(calculateWinner(8))
     // let temp = [7, 56, 448, 73, 146, 292, 84, 273]
     // let score = 401
