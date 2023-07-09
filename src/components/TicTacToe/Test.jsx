@@ -26,7 +26,12 @@ function calculateWinner(squares) {
 }
 
 export default function Test() {
-    const [history, setHistory] = useState({movesX: 0, movesO: 0})
+    // const [history, setHistory] = useState([{movesX: 0, movesO: 0}])
+    const [history, setHistory] = useState([{movesX:0, movesO:0}])
+    const [currentMove, setCurrentMove] = useState(0)
+    const xIsNext = currentMove % 2 == 0
+    // console.log(xIsNext)
+
     function  createSquares(moves) {
         let squares = Array(9).fill(null)
         for (let i = 0; i < 9; i++) {
@@ -41,6 +46,27 @@ export default function Test() {
         return squares
     }
 
+    // const currentBoard = createSquares(history.slice(-1))
+    const currentBoard = createSquares(history[currentMove])
+    // console.log(history)
+
+    function handleClick(i) {
+        const current = history[currentMove]
+        let next
+        if (xIsNext) {
+            next = {
+                movesX: current.movesX + 2 ** i,
+                movesO: current.movesO
+            }
+        } else {
+            next = {
+                movesX: current.movesX,
+                movesO: current.movesO + 2 ** i
+            }
+        }
+        setCurrentMove(prev => prev + 1)
+        setHistory([...history, next])
+    }
     // let temp = 412 // 001110011
     // let temp2 = []
     // for (let i = 0; i < 9; i++) {
@@ -64,9 +90,9 @@ export default function Test() {
     //             [score ^ 84, score ^ 273])
 
     // console.log(calculateWinner(146))
-    calculateWinner(137)
+    // calculateWinner(137)
 
-    const dummyBoard = Array(9).fill(null)
+    // const dummyBoard = Array(9).fill(null)
     // const gameStatus = (game.winner)
     //                     ? `Winner: ${game.winner}`
     //                     : `Next Player: ${game.xIsNext ? 'X' : 'O'}`
@@ -84,9 +110,9 @@ export default function Test() {
     //         );
     //     });
 
-{/* <div className="game-info">
-    <div>{gameStatus}</div>
-</div> */}
+// {/* <div className="game-info">
+//     <div>{gameStatus}</div>
+// </div> */}
 //     <ol>
 //     {moves}
 // </ol>
@@ -95,7 +121,7 @@ export default function Test() {
         <div className="game">
             <div className="game-board">
                 <Board
-                    squares={dummyBoard}
+                    squares={currentBoard}
                     onClick={(i) => handleClick(i)}
                 />
             </div>
