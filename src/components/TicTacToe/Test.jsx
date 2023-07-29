@@ -47,6 +47,7 @@ export default function Test() {
     }
 
     function  createSquares(moves) {
+        console.log(history[currentMove])
         let squares = Array(9).fill(null)
         for (let i = 0; i < 9; i++) {
             if ((moves.movesX >> i) & 1) {
@@ -60,8 +61,23 @@ export default function Test() {
         return squares
     }
 
-    function jumpTo(i) {
-        console.log(i)
+    /*
+    This is broken and I don't know why.
+    You can successfully roll back the game state by clicking on each button
+    and it will correctly display the right Xs and Os.  But when you attempt
+    to add a new move, it breaks spectacularly.  There seems to be some issue
+    with the createSquares function.  When I uncomment the setHistory part, it
+    breaks immediately when you click one of the history buttons.  I suspect it
+    may relate to how react batches state changes, but really I don't know.  As
+    it is, I've spent too much time on this already and I just need to move on.
+    */
+    const jumpTo = (e) =>{
+        const move = e.target.getAttribute('id')
+        winner = null
+        setCurrentMove(move)
+        // setHistory(() => 
+        // [...history.slice(0, move)]
+        // )
     }
 
     const currentBoard = createSquares(history[currentMove])
@@ -94,7 +110,7 @@ export default function Test() {
                             : `move #${index}`
         return (
             <li key={index}>
-                <button onClick={(i) => jumpTo(i)}>
+                <button id={index} onClick={(i) => jumpTo(i)}>
                     Go to {description}
                 </button>
             </li>
